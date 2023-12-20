@@ -1,0 +1,13 @@
+sudo apt install --no-install-recommends smartmontools
+sudo apt install testdisk
+#Find the corrupted disk 
+sudo fdisk -l
+#Level of damage 
+sudo smartctl -i /dev/sda1
+sudo smartctl -a /dev/sdb1
+#Disk image backup of the hard disk using testdisk  
+Testdisk->Advanced->SelectDrive->ImageBackup->selectLocation.
+#The image.dd backup file.
+sudo photorec image.dd
+image.dd->selectMedia->fileOptions
+

@@ -1,0 +1,36 @@
+There are a few steps we need to follow, step 1 : Inherit the UserCreationForm and add custom form fields to it, as per your case in forms.py
+
+class SignUpForm(UserCreationForm):
+    age = forms.IntegerField()
+    gender = forms.CharField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'age', 'gender', 'password1', 'password2']
+
+step 2 : Create a model as per your custom fields and create a OneToOneField relation with User in models.py file
+
+from django.contrib.auth.models import User
+
+class UserData(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    age = models.PositiveIntegerField()
+    gender = models.CharField(max_length=20)
+ 
+step 3 : create a view that will invoke during POST method and will create a new user instance and will store the extra field data to the model which we created
+
+def register_user(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            age = form.cleaned_data.get('age')
+            gender = form.cleaned_data.get('gender')
+            user = User.objects.get(username=username)
+            user_data = UserData.objects.create(user=user, age=age, gender=gender)
+            user_data.save()
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request, 'base/signupform.html', {'form':form})

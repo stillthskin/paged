@@ -1,0 +1,32 @@
+Components(Piece of reusable code).
+             App
+NavBar	Profile	 Trends Feed
+			Tweet
+			Like
+Component is a class(Class that extends componets).
+
+index.js // Entry point to the app.
+Import React from 'react';
+Import Element(className) from ./element(relative directory)
+Import ReactDOM from 'react-dom';
+
+element = <h1>Hello world</h>
+//element = app(with children)
+ReactDOM.render(<element/>, document.getElementByID("root"));
+ReactDOM.render(element,document.getElementByID("root"));
+
+App.js
+Class Trend {
+	state = {}
+	//How the UI should look.
+	render(){
+	//Render JSX(Basically HTML)
+	}
+
+}
+JSX(Basically HTML) -> Babel -> JS
+
+Render componets inside divs with IDs(ReactDOM.render(<component/>, document.getElementByID("ID")))
+Extensions.
+Simple react snippets.
+prettier(format on save)
